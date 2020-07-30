@@ -167,7 +167,7 @@ struct AdRevenue: View {
                 .frame(height: 30)
             }
             if settings.streakDays > 0 {
-                Text("\(settings.streakDays) day streak - keep it up!")
+                Text("\(settings.streakDays) day streak!")
                 .foregroundColor(.blue)
                 .italic()
                     .padding(.bottom)

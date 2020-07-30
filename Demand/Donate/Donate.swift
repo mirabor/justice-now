@@ -61,22 +61,6 @@ struct Donate: View {
 NavigationView {
     
     VStack {
-//        NavigationLink(destination: AdRevenue().environmentObject(settings), isActive: $isActive) {
-//                Button(action: {
-//                    self.isActive = true
-//                    self.resetDaily()
-//                            })
-//                    {
-//                        Text("Watch Ads")
-//                          .foregroundColor(.white)
-//                          .font(.headline)
-//                          .multilineTextAlignment(.center)
-//                          .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-//                          .padding()
-//                          .background(RoundedRectangle(cornerRadius: 15, style: .continuous)
-//                              .fill(Color.blue))
-//                     }
-//        }.padding()
         
         Picker(selection: self.$donationType, label: Text("Choose a type of donation")) {
         ForEach(self.donationTypes.indices, id: \.self){

@@ -60,7 +60,7 @@ struct Home: View {
         if isToday == true {
             print("No biggie! It's within the same day of me last watching an ad")
             print("I watched an ad at: \(settings.lastAdTime)")
-            settings.streakValue = Float(settings.adsWatched)/5
+            settings.streakValue = Float(settings.adsWatched)/Float((settings.dailyGoal + 1))
             
 
         } else {
@@ -76,8 +76,6 @@ struct Home: View {
         NavigationView{
             Group {
             VStack (alignment: .leading){
-//                Text("Profile").bold().font(.title)
-//                    .padding(EdgeInsets(top: 20, leading: 20, bottom: 10, trailing: 0))
 
                 Section()
                     {
@@ -113,7 +111,7 @@ struct Home: View {
                                 .padding(.trailing, 5)
                      Text("Set Location").bold()
                             }
-                 }
+                        }.padding(.top)
                         if settings.collectArea == true {
                             if colorScheme == .light {
                     TextField("What's your city or town and state?", text: $settings.area)
@@ -129,19 +127,19 @@ struct Home: View {
                             }
                 }
                 }
-                .padding(EdgeInsets(top: 0, leading: 20, bottom: 10, trailing: 30))
+                .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 30))
                 }
                 Spacer()
-                
+                    .frame(height: 26)
                 Group {
                 if settings.todayStreak == false {
                     ZStack {
                         Image(systemName: "flame")
                             .foregroundColor(.blue)
-                            .font(.system(size: 75))
+                            .font(.system(size: 72))
                         Text("\(settings.streakDays)")
                             .fontWeight(.bold)
-                            .font(.system(size: 15))
+                            .font(.system(size: 14))
                             .foregroundColor(.white)
                             .offset(x: 1, y: 24)
                     }.padding()
@@ -149,14 +147,36 @@ struct Home: View {
                         ZStack {
                              Image(systemName: "flame.fill")
                                  .foregroundColor(.blue)
-                                .font(.system(size: 75, weight: .light))
+                                .font(.system(size: 72, weight: .light))
                              
                              Text("\(settings.streakDays)")
                                   .fontWeight(.bold)
-                                 .font(.system(size: 18))
+                                 .font(.system(size: 14))
                                  .foregroundColor(.blue)
                                  .offset(y: 24)
                     }.padding()
+                    if settings.streakDays > 0 {
+                        Text("\(settings.streakDays) day streak!")
+                        .foregroundColor(.blue)
+                            .font(.system(size: 14))
+                            .fontWeight(.light)
+                            .padding(.bottom)
+                            .padding(.top, 5)
+                    } else if settings.streakDays == 0 {
+                      Text("You don't have a streak yet. Let's get started!")
+                        .foregroundColor(.blue)
+                        .fontWeight(.light)
+                        .padding(.top, 5)
+                        .font(.caption)
+                        .padding(.bottom)
+                        
+//                    Text("Let's get started!")
+//                        .foregroundColor(.blue)
+//                        .font(.caption)
+//                        .italic()
+//                        .frame(maxWidth: .infinity, alignment: .center)
+//                        .padding(.bottom)
+                    }
                         }
                     Group {
                     HStack{
@@ -184,39 +204,24 @@ struct Home: View {
                         }
                         
                     }.pickerStyle(SegmentedPickerStyle())
-                            .frame(width: 130, height: 16)
+                            .frame(width: 220, height: 12)
                             .scaledToFit()
-                        .scaleEffect(CGSize(width: 1.3, height: 1.3))
+                        .scaleEffect(CGSize(width: 1.2, height: 1.2))
                         .labelsHidden()
                         .padding(EdgeInsets(top: 7, leading: 0, bottom: 5, trailing: 0))
                     }
-                        Text("\(settings.adsWatched)/\(settings.dailyGoal + 1) Ads").bold()
+                        Text("\(settings.adsWatched)/\(settings.dailyGoal + 1) Ads")
+                            .fontWeight(.semibold)
                         .frame(alignment: .leading)
-                        .padding(.vertical)
+                        .padding(.top)
+                            .padding(.bottom, 5)
                         .font(.system(size: 18))
                             .foregroundColor(.blue)
                         
+                        
                     ProgressBar()
-                        .frame(height: 17)
+                        .frame(height: 19)
                         .padding(.horizontal)
-                        .padding(.bottom)
-                    }
-                    if settings.streakDays > 0 {
-                        Text("\(settings.streakDays) day streak - keep it up!")
-                        .foregroundColor(.blue)
-                        .italic()
-                            .font(.caption)
-                            .padding(.bottom)
-                    } else {
-                      Text("You don't have a streak yet.")
-                        .foregroundColor(.blue)
-                        .italic()
-                        .font(.caption)
-                    Text("Let's get started!")
-                        .foregroundColor(.blue)
-                        .italic()
-                        .font(.caption)
-                        .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.bottom)
                     }
                 Spacer()

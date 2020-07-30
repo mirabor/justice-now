@@ -72,6 +72,8 @@ struct Notifications: View {
             Button(action: {
                 if self.settings.notifsEnabled == true {
                 self.addNotification()
+                } else {
+                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
                 }
                self.presentationMode.wrappedValue.dismiss()
             }) {
